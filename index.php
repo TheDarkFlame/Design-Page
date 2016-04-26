@@ -1,9 +1,10 @@
 	<?PHP
+	require_once './functions.php';
+	initflag("operating_mode","on");//on, off, scheduled
+	initflag("device_connected","no");//yes, no
+	initflag("schedule_modified","no");//yes, no
+	initflag("price","0.00");//any numeric value
 	session_start();
-	if(!(isset($_SESSION['login']) && !empty($_SESSION['login']))){
-		header("Location:login.php");//redirect to login page
-	}
-	else{
-		header("Location:main.php");//redirect to main page
-	}
+	check_login();//checks if user is logged in first
+	header("Location:main.php");//redirect to main page
 	?>

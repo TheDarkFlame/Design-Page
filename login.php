@@ -3,6 +3,13 @@
 		<TITLE>Power Monitor: Login</TITLE>
 		<LINK REL = Stylesheet TYPE="text/css" HREF="styles.css">
 		<?PHP
+			require_once('functions.php');
+			 if(isset($_GET["logout"])){
+				if ($_GET["logout"]=="logout"){
+					logout();
+				}
+			 }
+		
 			$uname = "";
 			$pword = "";
 			$errorMessage = "";

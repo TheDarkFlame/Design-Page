@@ -85,7 +85,7 @@
 
 		<?PHP print $errorMessage . "<P>";?>
 		<P>
-		<A HREF = logoutpage.php>Log Out</A>
+		<A HREF = "login.php?logout=logout">Log Out</A>
 		<A href="./main.php">Main Page</A>
 	</BODY>
 </HTML>
