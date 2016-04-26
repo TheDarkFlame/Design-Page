@@ -4,12 +4,34 @@
 		<LINK REL = Stylesheet TYPE="text/css" HREF="styles.css">
 		<?PHP
 			require_once('functions.php');
-			 if(isset($_GET["logout"])){
+			if(isset($_GET["logout"])){
 				if ($_GET["logout"]=="logout"){
 					logout();
 				}
-			 }
-		
+			}
+			
+			
+			//if no users. just send to main page
+			$mysqli = new mysqli("127.0.0.1","root","","design_db");
+			if($mysqli->connect_errno){
+				trigger_error($mysqli->connect_error);
+			}
+			else{
+				$SQL_query = "SELECT * FROM `login` ";
+				if($result = $mysqli->query($SQL_query)){		
+					if( $result->num_rows == 0){//if the number of rows is 0
+						header("Location: main.php");//redirect user to page
+					}
+				}
+				else{//error with sql query
+					trigger_error($mysqli->error ." ". $SQL_query);
+				}
+			}
+			$mysqli->close();
+			
+			
+			
+			
 			$uname = "";
 			$pword = "";
 			$errorMessage = "";

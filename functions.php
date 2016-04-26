@@ -8,7 +8,7 @@
 		}
 		$SQL_Message = "SELECT * FROM `login`";
 		if($result = $mysqli->query($SQL_Message)){//query db
-			if(count($result)!=0){//if we have an entry, check if it is valid, if invalid, redirect
+			if($result->num_rows!=0){//if we have an entry, check if it is valid, if invalid, redirect
 				session_start();
 				if(!(isset($_SESSION['login']) && !empty($_SESSION['login']))){
 					header("Location:login.php");//redirect to login page

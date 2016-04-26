@@ -7,12 +7,35 @@
 			require_once('functions.php');
 			check_login();//check user is logged in
 			
-				$errorMessage="";
-				$get_uname = "";
-				$get_pword1 = "";
-				$get_pword2 = "";
+			//handle the deleting of a user
+			if(isset($_POST['delete_entries'])){
+				if(isset($_POST['valid_usernames'])){
+					$deleteList=array();
+					$mysqli = new mysqli("127.0.0.1","root","","design_db");
+					if($mysqli->connect_errno){//connect to db
+						trigger_error($msqyli->connect_error);
+					}
+					$deleteList = $_POST['valid_usernames'];
+					foreach ($deleteList as $listboxname){//http://stackoverflow.com/questions/2407284/how-to-get-multiple-selected-values-of-select-box-in-php
+						//delete from db
+						$SQL_Message = "DELETE FROM `login` WHERE `UID` = '".$listboxname."'";
+						if( !(($mysqli->query($SQL_Message))) ){//query db
+							trigger_error($mysqli->error." ".$SQL_Message);//if unsuccessful, print error
+						}
+					}
+					$mysqli->close();//close connection to db
+				}
+			}
 			
-				//check button is pressed
+			
+			
+			
+			$errorMessage="";
+			$get_uname = "";
+			$get_pword1 = "";
+			$get_pword2 = "";
+			
+			//check button is pressed
 			if(isset($_POST['submit_button'])){
 				//get input
 				$get_uname = $_POST['username'];
@@ -84,6 +107,49 @@
 		</FORM>
 
 		<?PHP print $errorMessage . "<P>";?>
+		
+		
+		
+		
+		<?PHP
+			$mysqli= new mysqli("127.0.0.1","root","","design_db");
+			if($mysqli->connect_errno){//connect to db
+				trigger_error($msqyli->connect_error);
+			}
+			$SQL_Message = "SELECT `Username`, `UID` FROM `login`";
+			if( !($result = $mysqli->query($SQL_Message)) ){//query db, if query fails print error
+				trigger_error($mysqli->error." ".$SQL_Message);
+			}
+		?>
+		<FORM method="post" action="registeruser.php">
+			<TABLE>
+				<TR>
+					<TD>
+						<select name="valid_usernames[]" size=<?php print '"'.($result->num_rows + 2).'"'?> multiple="true">
+						<option disabled>Username</option>
+						<option disabled>────────</option>
+						<?PHP
+							while($row = $result->fetch_array(MYSQLI_ASSOC)){
+								printf('<option value="%d">',$row["UID"]);//<option value=UID>
+								printf("%s",$row["Username"]);//the username displayed in list
+							}
+							$result->free();
+							$mysqli->close();
+						?>
+					</select>
+					</TD>
+				</TR>
+				<TR>
+					<TD>
+						<INPUT type="submit" name="delete_entries" value="Delete">
+					</TD>
+				</TR>
+			</TABLE>
+		</FORM>
+		
+		
+		
+		
 		<P>
 		<A HREF = "login.php?logout=logout">Log Out</A>
 		<A href="./main.php">Main Page</A>
