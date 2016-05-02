@@ -10,7 +10,9 @@
 		if(isset($_POST["submit_cost"])){		
 			if(is_numeric($_POST["cost_of_power"])){//if price is set and is numeric
 				$price = abs($_POST["cost_of_power"]);//ensure the value is positive
-				setflag("price",$price);
+				$price = $price/100; //convert cents/Wh->Rands/Wh
+				$price = $price/1000; //convert Rands/kWh -> Rands/Wh
+				setflag("price",$price);//save price in R/Wh
 			}
 		}
 		if(!(isset($price))){//get price from database if not set
@@ -24,14 +26,17 @@
 		if(isset($_POST["on_button"])){
 			$operating_mode = "on";
 			setflag("operating_mode",$operating_mode);
+			setflag("mode_modified","yes");//set the mode_modified flag
 		}
 		if(isset($_POST["off_button"])){
 			$operating_mode = "off";
 			setflag("operating_mode",$operating_mode);
+			setflag("mode_modified","yes");//set the mode_modified flag
 		}
 		if(isset($_POST["auto_button"])){
 			$operating_mode = "scheduled";
 			setflag("operating_mode",$operating_mode);
+			setflag("mode_modified","yes");//set the mode_modified flag
 		}
 		
 		//connect to the mysql database
@@ -54,7 +59,7 @@
 
 	
 </HEAD>
-<BODY>
+<BODY class="centeredWidthLarge">
 
 	
 	<H1>Power Monitor</H1>
@@ -213,8 +218,8 @@
 		<TR>
 			<TD>
 				<FORM METHOD="POST" ACTION="main.php">
-					<LABEL for="cost_of_power">set power cost per Watt-hour (Wh): R</LABEL>
-					<INPUT type = "text" name="cost_of_power" placeholder=<?php print "'".$price."'"?>>
+					<LABEL for="cost_of_power">set power cost per kiloWatt-hour (c/kWh):</LABEL>
+					<INPUT type = "text" name="cost_of_power" placeholder=<?php print "'".$price*"100000"."'"?>>c
 					<INPUT type = "submit" name = "submit_cost" value="submit">
 				</FORM>
 				</TD>

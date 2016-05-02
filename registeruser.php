@@ -1,8 +1,9 @@
 <HTML>
 	<HEAD>
 		<TITLE>Register a New user</Title>
+		<LINK REL = Stylesheet TYPE="text/css" HREF="styles.css">
 	</HEAD>
-	<BODY>
+	<BODY class="centeredWidthLarge">
 		<?PHP 
 			require_once('functions.php');
 			check_login();//check user is logged in
@@ -98,8 +99,8 @@
 			}
 		?>
 		
-		<H1 class="centeredWidth">Register New User</H1>
-		<FORM class="centeredHeightAndWidth" METHOD="POST" ACTION="registeruser.php">
+		<H1>Register New User</H1>
+		<FORM METHOD="POST" ACTION="registeruser.php">
 			<INPUT TYPE="text" placeholder="username" name="username" value=<?PHP print $get_uname?>><BR>
 			<INPUT TYPE="password" placeholder="enter password" name="password1" value=<?PHP print $get_pword1 ?>><BR>
 			<INPUT TYPE="password" placeholder="re-enter password" name="password2" value=<?PHP print $get_pword2 ?>><BR>

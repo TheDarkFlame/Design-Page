@@ -2,7 +2,7 @@
 <HEAD>
 	<LINK REL = Stylesheet TYPE="text/css" HREF="styles.css">
 </HEAD>
-<BODY>
+<BODY  class="centeredWidthLarge">
 	<?PHP 
 	require_once('functions.php');
 	check_login();//check user is logged in
@@ -24,6 +24,7 @@
 					trigger_error($mysqli->error." ".$SQL_Message);//if unsuccessful, print error
 				}
 			}
+			setflag("schedule_modified","yes");//set the schedule_modified flag
 			$mysqli->close();//close connection to db
 		}
 	}

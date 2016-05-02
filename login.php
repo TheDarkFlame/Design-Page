@@ -73,12 +73,19 @@
 			}
 		?>
 	</HEAD>
-	<BODY>
-	<H1 class="centeredWidth">LOGIN</H1>
-		<FORM class="centeredHeightAndWidth" METHOD="POST" ACTION="login.php">
-			<INPUT TYPE="text" placeholder="username" name="username"><BR>
-			<INPUT TYPE="password" placeholder="password" name="password"><BR>
-			<INPUT TYPE="submit" Name="submit_button" value="Login">
-		</FORM>
+	<BODY class="centeredHeightandWidth">
+		<TABLE>
+			<TR>
+				<TD>
+					<IMG src="./resources/Lightbulb.gif" style="width:150px;height:150px;"></IMG><BR>
+					<H1>LOGIN</H1>
+					<FORM METHOD="POST" ACTION="login.php">
+						<INPUT TYPE="text" placeholder="username" name="username"><BR>
+						<INPUT TYPE="password" placeholder="password" name="password"><BR>
+						<INPUT TYPE="submit" Name="submit_button" value="Login">
+					</FORM>
+				</TD>
+			</TR>
+		</TABLE
 	</BODY>
 </HTML>
